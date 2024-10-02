@@ -4,7 +4,6 @@ import { DialogTrigger } from "./ui/dialog";
 import { InOrbitIcon } from "./in-orbit-icon";
 import { Progress, ProgressIndicator } from "./ui/progress-bar";
 import { Separator } from "./ui/separator";
-import { OutlineButton } from "./ui/outline-button";
 import { useQuery } from "@tanstack/react-query";
 import { getSummary } from "../http/get-summary";
 import dayjs from "dayjs";
@@ -21,7 +20,6 @@ export function Summary() {
         staleTime: 1000 * 60 // 60 seconds
     })
     if (!data) return;
-    console.log(data)
 
     const firstDayOfWeek = dayjs().startOf('week').format('D MMMM');
     const lastDayOfWeek = dayjs().endOf('week').format('D MMMM');
