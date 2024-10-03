@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { EmptyGoals } from './components/empty-goals'
 import { useQuery } from '@tanstack/react-query';
 import { getSummary } from './http/get-summary';
+import { Login } from './components/login';
 
 export function App() {
   const { data } = useQuery({
@@ -16,8 +17,9 @@ export function App() {
 
   return (
     <Dialog>
-      {data && data?.total > 0 ? <Summary /> : <EmptyGoals />}
-      <CreateGoal />
+      <Login />
+      {/* {data && data?.total > 0 ? <Summary /> : <EmptyGoals />}
+      <CreateGoal /> */}
     </Dialog>
   )
 }
