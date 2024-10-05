@@ -9,11 +9,11 @@ import { getSummary } from './http/get-summary';
 import { Login } from './components/login';
 
 export function App() {
-  const { data } = useQuery({
-    queryKey: ['summary'],
-    queryFn: getSummary,
-    staleTime: 1000 * 60 // 60 seconds
-  })
+  // const { data } = useQuery({
+  //   queryKey: ['summary'],
+  //   queryFn: getSummary,
+  //   staleTime: 1000 * 60 // 60 seconds
+  // })
 
   return (
     <Dialog>
