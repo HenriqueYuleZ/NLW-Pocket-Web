@@ -25,9 +25,11 @@ export function CreateGoal() {
     });
 
     async function handleCreateGoal(data: CreateGoalForm) {
+        const userId = JSON.parse(localStorage.getItem('user') || 'null').user.id;
         await createGoal({
             title: data.title,
             desiredWeeklyFrequency: data.desiredWeeklyFrequency,
+            userId
         })
 
         queryClient.invalidateQueries({ queryKey: ['summary'] })
@@ -59,7 +61,7 @@ export function CreateGoal() {
                                 {...register('title')} />
 
                             {formState.errors.title && (
-                                <p className="text-red-400 text-sm">{ formState.errors.title.message }</p>
+                                <p className="text-red-400 text-sm">{formState.errors.title.message}</p>
                             )}
                         </div>
                         <div className='flex flex-col gap-2'>

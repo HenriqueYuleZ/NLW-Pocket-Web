@@ -12,11 +12,25 @@ import { PendingGoals } from "./pending-goals";
 
 dayjs.locale(ptBr);
 
+interface SummaryResponse {
+    token: string;
+    user: {
+        id: string;
+        username: string;
+    }
+}
+
 
 export function Summary() {
+    const user = JSON.parse(localStorage.getItem('user') || 'null') as SummaryResponse | null;
+    let userId = '';
+    if (user) {
+        userId = user.user.id
+    }
+
     const { data } = useQuery({
-        queryKey: ['summary'],
-        queryFn: getSummary,
+        queryKey: ['summary', user],
+        queryFn: () => getSummary({ userId: userId }),
         staleTime: 1000 * 60 // 60 seconds
     })
     if (!data) return;

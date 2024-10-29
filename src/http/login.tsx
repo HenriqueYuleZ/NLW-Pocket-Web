@@ -15,8 +15,10 @@ export async function userLogin({ username, password }: Login) {
     const data = await response.json();
 
     if (response.ok) {
-        localStorage.setItem('token', data.token); // Armazena o token JWT no localStorage
-        return data; // Retorna o usuário logado
+        const { message, ...rest } = data;
+        localStorage.setItem('user', JSON.stringify(rest)); // Armazena o usuário logado no localStorage como JSON
+        localStorage.setItem('token', data.token); // Armazena o token JWT no localStorage como JSON
+        return rest; // Retorna o usuário logado sem o atributo message
     }
     throw new Error(data.error || 'Erro ao fazer login');
 }

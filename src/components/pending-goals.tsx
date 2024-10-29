@@ -7,16 +7,19 @@ import { createGoalCompletion } from "../http/create-goal-completion";
 export function PendingGoals() {
     const queryClient = useQueryClient()
 
+    const userId = JSON.parse(localStorage.getItem('user') || 'null').user.id;
+
     const { data } = useQuery({
-        queryKey: ['pending-goals'],
-        queryFn: getPendingGoals,
+        queryKey: ['pending-goals', userId],
+        queryFn: () => getPendingGoals(userId),
         staleTime: 1000 * 60 // 60 seconds
     })
 
     if (!data) return null;
 
     async function handleCompleteGoal(goalId: string) {
-        await createGoalCompletion(goalId)
+        const userId = JSON.parse(localStorage.getItem('user') || 'null').user.id;
+        await createGoalCompletion(goalId, userId);
 
         queryClient.invalidateQueries({ queryKey: ['summary'] })
         queryClient.invalidateQueries({ queryKey: ['pending-goals'] })
