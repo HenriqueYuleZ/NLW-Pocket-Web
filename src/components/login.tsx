@@ -17,7 +17,11 @@ const loginForm = z.object({
 
 type LoginForm = z.infer<typeof loginForm>;
 
-export function Login() {
+interface LoginProps {
+    onLoginSuccess: () => void;
+}
+
+export function Login({ onLoginSuccess }: LoginProps) {
     const queryClient = useQueryClient()
 
     const [alertMessage, setAlertMessage] = useState<string | null>(null);
@@ -27,16 +31,16 @@ export function Login() {
     })
 
     async function handleLogin(data: LoginForm) {
-        setAlertMessage(null);
         try {
             const response = await userLogin({
                 username: data.username,
-                password: data.password
+                password: data.password,
             });
 
-            console.log("response");
+            if (response) {
+                onLoginSuccess();
+            }
         } catch (error) {
-            console.log(error)
             setAlertMessage((error as Error).message || "Erro ao tentar fazer login. Tente novamente mais tarde.");
         }
 

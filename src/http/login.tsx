@@ -16,7 +16,7 @@ export async function userLogin({ username, password }: Login) {
 
     if (response.ok) {
         localStorage.setItem('token', data.token); // Armazena o token JWT no localStorage
-        return data.user; // Retorna o usuário logado
+        return data; // Retorna o usuário logado
     }
     throw new Error(data.error || 'Erro ao fazer login');
 }
