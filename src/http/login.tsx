@@ -22,3 +22,20 @@ export async function userLogin({ username, password }: Login) {
     }
     throw new Error(data.error || 'Erro ao fazer login');
 }
+
+export async function userRegister({ username, password }: Login) {
+    const response = await fetch('http://localhost:3333/users', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+        return data;
+    }
+    throw new Error(data.error || 'Erro ao fazer cadastro');
+}

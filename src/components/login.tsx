@@ -7,15 +7,20 @@ import { Label } from "./ui/label";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { userLogin } from "../http/login";
+import { userLogin, userRegister } from "../http/login";
 import { useQueryClient } from '@tanstack/react-query';
 
 const loginForm = z.object({
     username: z.string().min(1, 'Informe o nome de usuário'),
     password: z.string().min(1, 'Informe a senha'),
 })
+const registerForm = z.object({
+    usernameRegister: z.string().min(1, 'Informe o nome de usuário'),
+    passwordRegister: z.string().min(1, 'Informe a senha'),
+})
 
 type LoginForm = z.infer<typeof loginForm>;
+type RegisterForm = z.infer<typeof registerForm>;
 
 interface LoginProps {
     onLoginSuccess: () => void;
@@ -25,9 +30,14 @@ export function Login({ onLoginSuccess }: LoginProps) {
     const queryClient = useQueryClient()
 
     const [alertMessage, setAlertMessage] = useState<string | null>(null);
+    const [alertRegister, setAlertRegister] = useState<string | null>(null);
 
     const { register, handleSubmit, formState, reset } = useForm<LoginForm>({
         resolver: zodResolver(loginForm)
+    })
+
+    const { register: registerRegister, handleSubmit: handleSubmitRegister, formState: formStateRegister } = useForm<RegisterForm>({
+        resolver: zodResolver(registerForm)
     })
 
     async function handleLogin(data: LoginForm) {
@@ -42,6 +52,27 @@ export function Login({ onLoginSuccess }: LoginProps) {
             }
         } catch (error) {
             setAlertMessage((error as Error).message || "Erro ao tentar fazer login. Tente novamente mais tarde.");
+        }
+
+        queryClient.invalidateQueries({ queryKey: ['summary'] })
+        queryClient.invalidateQueries({ queryKey: ['pending-goals'] })
+
+        reset();
+    }
+
+    async function handleRegister(data: RegisterForm) {
+        try {
+            const response = await userRegister({
+                username: data.usernameRegister,
+                password: data.passwordRegister,
+            });
+
+            if (response) {
+                handleLogin({ username: data.usernameRegister, password: data.passwordRegister });
+                onLoginSuccess();
+            }
+        } catch (error) {
+            setAlertRegister((error as Error).message || "Erro ao tentar cadastrar usuário. Tente novamente mais tarde.");
         }
 
         queryClient.invalidateQueries({ queryKey: ['summary'] })
@@ -95,19 +126,36 @@ export function Login({ onLoginSuccess }: LoginProps) {
                     <div className="border-l border-gray-300 h-full mx-8">
                     </div>
                 </div>
-                <form className="flex flex-col items-center justify-center gap-8 pb-8">
-                    <h1 className="text-4xl font-bold">Cadastro</h1>
-                    <p className="text-zinc-300 leading-relaxed max-w-100 text-center">Cadastre-se para começar a usar o in.task.</p>
-                    <div className="flex flex-col leading-relaxed sm:w-full max-w-md">
-                        <Label className="text-xl pb-2 text-center">Nome de usuário</Label>
-                        <Input className="w-full px-4" type="text" name="username" placeholder="nome de usuário..." />
-                        <Label className="text-xl pt-4 pb-2 text-center">Senha</Label>
-                        <Input className="w-full" type="password" name="password" placeholder="senha..." />
+                <form onSubmit={handleSubmitRegister(handleRegister)}>
+                    <div className="flex flex-col items-center justify-center gap-8 pb-8">
+                        <h1 className="text-4xl font-bold">Cadastro</h1>
+                        <p className="text-zinc-300 leading-relaxed max-w-100 text-center">Cadastre-se para começar a usar o in.task.</p>
+                        {alertRegister && (
+                            <div className="bg-red-500 mt-4 text-white p-2 rounded">
+                                {alertRegister}
+                            </div>
+                        )}
+                        <div className="flex flex-col leading-relaxed sm:w-full max-w-md">
+                            <Label className="text-xl pb-2 text-center">Nome de usuário</Label>
+                            <Input className="w-full px-4" type="text" placeholder="nome de usuário..."
+                                {...registerRegister('usernameRegister')} />
+
+                            {formStateRegister.errors.usernameRegister && (
+                                <p className="text-red-400 text-sm">{formStateRegister.errors.usernameRegister.message}</p>
+                            )}
+                            <Label className="text-xl pt-4 pb-2 text-center">Senha</Label>
+                            <Input className="w-full" type="password" placeholder="senha..."
+                                {...registerRegister('passwordRegister')} />
+
+                            {formStateRegister.errors.passwordRegister && (
+                                <p className="text-red-400 text-sm">{formStateRegister.errors.passwordRegister.message}</p>
+                            )}
+                        </div>
+                        <Button className="bg-blue-500">
+                            <DoorOpenIcon className="size-4" />
+                            Cadastrar
+                        </Button>
                     </div>
-                    <Button className="bg-blue-500" type="submit">
-                        <DoorOpenIcon className="size-4" />
-                        Cadastrar
-                    </Button>
                 </form>
             </div>
         </div>
