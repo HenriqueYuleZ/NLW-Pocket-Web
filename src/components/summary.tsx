@@ -9,6 +9,7 @@ import { getSummary } from "../http/get-summary";
 import dayjs from "dayjs";
 import ptBr from "dayjs/locale/pt-br";
 import { PendingGoals } from "./pending-goals";
+import logo from "../assets/logo-task.png";
 
 dayjs.locale(ptBr);
 
@@ -44,7 +45,8 @@ export function Summary() {
         <div className="py-10 max-w-[480px] px-5 mx-auto flex flex-col gap-6">
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                    <InOrbitIcon />
+                    <img src={logo} alt="in.task" width={30} />
+
                     <span className="text-lg font-semibold capitalize">{firstDayOfWeek} - {lastDayOfWeek}</span>
                 </div>
 

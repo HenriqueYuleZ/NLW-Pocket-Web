@@ -151,7 +151,7 @@ export function Login({ onLoginSuccess }: LoginProps) {
                                 <p className="text-red-400 text-sm">{formStateRegister.errors.passwordRegister.message}</p>
                             )}
                         </div>
-                        <Button className="bg-blue-500">
+                        <Button className="bg-rose-500">
                             <DoorOpenIcon className="size-4" />
                             Cadastrar
                         </Button>
