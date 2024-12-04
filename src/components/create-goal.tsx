@@ -9,6 +9,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createGoal } from "../http/create-goal";
 import { useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 
 const createGoalForm = z.object({
     title: z.string().min(1, 'Informe a atividade que deseja realizar'),
@@ -24,18 +25,29 @@ export function CreateGoal() {
         resolver: zodResolver(createGoalForm),
     });
 
+    const [alertMessage, setAlertMessage] = useState<string | null>(null);
+    const [colorMessage, setColorMessage] = useState<string | null>(null);
+
     async function handleCreateGoal(data: CreateGoalForm) {
-        const userId = JSON.parse(localStorage.getItem('user') || 'null').user.id;
-        await createGoal({
-            title: data.title,
-            desiredWeeklyFrequency: data.desiredWeeklyFrequency,
-            userId
-        })
+        try {
+            const userId = JSON.parse(localStorage.getItem('user') || 'null').user.id;
+            await createGoal({
+                title: data.title,
+                desiredWeeklyFrequency: data.desiredWeeklyFrequency,
+                userId
+            });
 
-        queryClient.invalidateQueries({ queryKey: ['summary'] })
-        queryClient.invalidateQueries({ queryKey: ['pending-goals'] })
+            queryClient.invalidateQueries({ queryKey: ['summary'] });
+            queryClient.invalidateQueries({ queryKey: ['pending-goals'] });
 
-        reset()
+            setAlertMessage("Meta cadastrada com sucesso!");
+            setColorMessage("green");
+        } catch (error) {
+            setAlertMessage("Erro ao tentar criar a meta. Tente novamente mais tarde.");
+            setColorMessage("red");
+        } finally {
+            reset();
+        }
     }
 
     return (
@@ -111,7 +123,11 @@ export function CreateGoal() {
                             />
                         </div>
                     </div>
-
+                    {alertMessage && (
+                        <div className={`mt-4 text-white p-2 rounded ${colorMessage === 'red' ? 'bg-red-500' : 'bg-green-500'}`}>
+                            {alertMessage}
+                        </div>
+                    )}
                     <div className="flex items-center gap-3 pb-24">
                         <DialogClose asChild>
                             <Button type='button' className='flex-1' variant='secondary'>Fechar</Button>

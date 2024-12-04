@@ -86,9 +86,9 @@ export function Login({ onLoginSuccess }: LoginProps) {
             <div className="pt-5 flex flex-col items-center">
                 <img src={logo} alt="in.task" />
             </div>
-            <div className="flex xl:flex-row justify-center gap-16 flex-col xl:pt-40 pt-20">
+            <div className="flex xl:flex-row justify-center gap-12 flex-col xl:pt-40 pt-10">
                 <form onSubmit={handleSubmit(handleLogin)}>
-                    <div className="flex flex-col items-center justify-center gap-8">
+                    <div className="flex flex-col items-center justify-center gap-8 bg-zinc-950 p-4 border-2 rounded-lg">
                         <h1 className="text-4xl font-bold">Login</h1>
                         <p className="text-zinc-300 leading-relaxed max-w-100 text-center">Faça login para começar a cadastrar suas metas.</p>
                         {alertMessage && (
@@ -119,7 +119,10 @@ export function Login({ onLoginSuccess }: LoginProps) {
                     </div>
                 </form>
                 <div className="flex items-center xl:hidden">
-                    <div className="border-t border-gray-300 w-full my-8 mx-8">
+                    <div className="border-t border-gray-300 w-1/2 mx-8">
+                    </div>
+                    <span className='w-40'>Ou Então</span>
+                    <div className="border-t border-gray-300 w-1/2 mx-8">
                     </div>
                 </div>
                 <div className="hidden xl:flex items-center">
@@ -127,7 +130,7 @@ export function Login({ onLoginSuccess }: LoginProps) {
                     </div>
                 </div>
                 <form onSubmit={handleSubmitRegister(handleRegister)}>
-                    <div className="flex flex-col items-center justify-center gap-8 pb-8">
+                    <div className="flex flex-col items-center justify-center gap-8 pb-8 bg-zinc-950 p-4 border-2 rounded-lg">
                         <h1 className="text-4xl font-bold">Cadastro</h1>
                         <p className="text-zinc-300 leading-relaxed max-w-100 text-center">Cadastre-se para começar a usar o in.task.</p>
                         {alertRegister && (
