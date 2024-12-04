@@ -161,7 +161,7 @@ export function Login({ onLoginSuccess }: LoginProps) {
                     </div>
                 </form>
             </div>
-            <footer className="flex items-center justify-center gap-3 mt-10">
+            <footer className="flex items-center justify-center gap-3 mt-10 pb-40">
                 <span>Desenvolvido por <a href="https://github.com/HenriqueYuleZ" target='_blank' className="font-bold hover:text-blue-600" rel="noreferrer">Henrique YZ</a></span>
             </footer>
         </div>
