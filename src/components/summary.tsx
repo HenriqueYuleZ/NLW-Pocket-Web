@@ -104,7 +104,7 @@ export function Summary() {
                     )
                 })}
             </div>
-            <footer className="flex items-center justify-center mt-auto text-xs">
+            <footer className="flex items-center justify-center mt-auto text-xs pb-40">
                 <span>Desenvolvido por <a href="https://github.com/HenriqueYuleZ" target='_blank' className="font-bold hover:text-blue-600" rel="noreferrer">Henrique YZ</a></span>
             </footer>
         </div>
