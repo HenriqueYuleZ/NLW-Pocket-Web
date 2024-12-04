@@ -35,8 +35,8 @@ export function Summary() {
     })
     if (!data) return;
 
-    const firstDayOfWeek = dayjs().startOf('week').format('D MMMM');
-    const lastDayOfWeek = dayjs().endOf('week').format('D MMMM');
+    const firstDayOfWeek = dayjs().startOf('week').format('D [de] MMMM');
+    const lastDayOfWeek = dayjs().endOf('week').format('D [de] MMMM');
 
     const completedPercentage = Math.round(data.completed / data.total * 100);
 
@@ -46,7 +46,7 @@ export function Summary() {
                 <div className="flex items-center gap-3">
                     <img src={logo} alt="in.task" width={30} />
 
-                    <span className="text-lg font-semibold capitalize">{firstDayOfWeek} - {lastDayOfWeek}</span>
+                    <span className="text-lg font-semibold capitalize">{firstDayOfWeek} <br />{lastDayOfWeek}</span>
                 </div>
 
                 <DialogTrigger asChild>

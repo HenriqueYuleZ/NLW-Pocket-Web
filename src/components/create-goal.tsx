@@ -112,7 +112,7 @@ export function CreateGoal() {
                         </div>
                     </div>
 
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3 pb-24">
                         <DialogClose asChild>
                             <Button type='button' className='flex-1' variant='secondary'>Fechar</Button>
                         </DialogClose>
