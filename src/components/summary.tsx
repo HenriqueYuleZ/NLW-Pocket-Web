@@ -46,7 +46,7 @@ export function Summary() {
                 <div className="flex items-center gap-3">
                     <img src={logo} alt="in.task" width={30} />
 
-                    <span className="text-lg font-semibold capitalize">{firstDayOfWeek} <br />{lastDayOfWeek}</span>
+                    <span className="text-lg font-semibold capitalize">{firstDayOfWeek}<br />{lastDayOfWeek}</span>
                 </div>
 
                 <DialogTrigger asChild>
