@@ -1,10 +1,11 @@
+import API_BASE_URL from "../config/api";
 interface Login {
     username: string;
     password: string;
 }
 
 export async function userLogin({ username, password }: Login) {
-    const response = await fetch('http://localhost:3333/login', {
+    const response = await fetch(`${API_BASE_URL}/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -24,7 +25,7 @@ export async function userLogin({ username, password }: Login) {
 }
 
 export async function userRegister({ username, password }: Login) {
-    const response = await fetch('http://localhost:3333/users', {
+    const response = await fetch(`${API_BASE_URL}/users`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

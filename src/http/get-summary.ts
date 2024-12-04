@@ -1,3 +1,5 @@
+import API_BASE_URL from "../config/api";
+
 type SummaryResponse = {
     completed: number;
     total: number;
@@ -9,7 +11,7 @@ type SummaryResponse = {
 }
 
 export async function getSummary({ userId }: { userId: string }): Promise<SummaryResponse> {
-    const response = await fetch(`http://localhost:3333/summary?userId=${userId}`)
+    const response = await fetch(`${API_BASE_URL}/summary?userId=${userId}`)
     const data = await response.json()
 
     return data.summary

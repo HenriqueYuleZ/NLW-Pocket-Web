@@ -1,3 +1,5 @@
+import API_BASE_URL from "../config/api";
+
 type PendingGoalsResponse = {
     pendingGoals: {
         id: string;
@@ -9,7 +11,7 @@ type PendingGoalsResponse = {
 }
 
 export async function getPendingGoals(userId: string): Promise<PendingGoalsResponse> {
-    const response = await fetch(`http://localhost:3333/pending-goals?userId=${userId}`)
+    const response = await fetch(`${API_BASE_URL}/pending-goals?userId=${userId}`)
     const data = await response.json()
 
     return data.pendingGoals
