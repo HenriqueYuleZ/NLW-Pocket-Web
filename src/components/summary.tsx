@@ -41,7 +41,7 @@ export function Summary() {
     const completedPercentage = Math.round(data.completed / data.total * 100);
 
     return (
-        <div className="py-10 max-w-[480px] px-5 mx-auto flex flex-col gap-6">
+        <div className="py-10 max-w-[480px] px-5 mx-auto flex flex-col gap-6 min-h-screen">
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                     <img src={logo} alt="in.task" width={30} />
@@ -104,6 +104,9 @@ export function Summary() {
                     )
                 })}
             </div>
+            <footer className="flex items-center justify-center mt-auto text-xs">
+                <span>Desenvolvido por <a href="https://github.com/HenriqueYuleZ" target='_blank' className="font-bold hover:text-blue-600" rel="noreferrer">Henrique YZ</a></span>
+            </footer>
         </div>
     )
 }

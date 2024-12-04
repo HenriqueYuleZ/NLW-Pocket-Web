@@ -82,11 +82,11 @@ export function Login({ onLoginSuccess }: LoginProps) {
     }
 
     return (
-        <div>
+        <div className="min-h-screen flex flex-col justify-around">
             <div className="pt-5 flex flex-col items-center">
                 <img src={logo} alt="in.task" />
             </div>
-            <div className="flex xl:flex-row justify-center gap-12 flex-col xl:pt-40 pt-10">
+            <div className="flex xl:flex-row justify-center gap-12 flex-col xl:pt-10 pt-10">
                 <form onSubmit={handleSubmit(handleLogin)}>
                     <div className="flex flex-col items-center justify-center gap-8 bg-zinc-950 p-4 border-2 rounded-lg">
                         <h1 className="text-4xl font-bold">Login</h1>
@@ -161,6 +161,9 @@ export function Login({ onLoginSuccess }: LoginProps) {
                     </div>
                 </form>
             </div>
+            <footer className="flex items-center justify-center gap-3 mt-10">
+                <span>Desenvolvido por <a href="https://github.com/HenriqueYuleZ" target='_blank' className="font-bold hover:text-blue-600" rel="noreferrer">Henrique YZ</a></span>
+            </footer>
         </div>
     )
 }
