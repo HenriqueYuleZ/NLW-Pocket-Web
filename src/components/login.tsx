@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import logo from "../assets/logo-in-task.png";
 import { DoorOpenIcon } from "lucide-react";
 import { Button } from "./ui/button";
