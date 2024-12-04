@@ -9,7 +9,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createGoal } from "../http/create-goal";
 import { useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const createGoalForm = z.object({
     title: z.string().min(1, 'Informe a atividade que deseja realizar'),
@@ -27,6 +27,17 @@ export function CreateGoal() {
 
     const [alertMessage, setAlertMessage] = useState<string | null>(null);
     const [colorMessage, setColorMessage] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (alertMessage) {
+            const timer = setTimeout(() => {
+                setAlertMessage(null);
+                setColorMessage(null);
+            }, 3000); // 3000 ms = 3 segundos
+
+            return () => clearTimeout(timer);
+        }
+    }, [alertMessage]);
 
     async function handleCreateGoal(data: CreateGoalForm) {
         try {
