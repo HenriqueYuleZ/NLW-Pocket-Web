@@ -1,2 +1,2 @@
-const API_BASE_URL = "https://intask-server.onrender.com"
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3333';
 export default API_BASE_URL;
